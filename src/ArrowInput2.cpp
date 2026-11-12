@@ -1,12 +1,12 @@
 #include <iostream>   // Standard input/output library
 #include <cstdio>     // C standard I/O functions such as printf
 #include <unistd.h>   // Provides Unix functions such as read
-#include <termios.h>  // Used to control terminal settings
-#include "TerminalUi.h"
-#include "ArrowInput2.h"
-using namespace TerminalUI;
-// Alternative implementation of getch() for Linux systems
-char getch_linux() {
+#ifdef _WIN32
+    #include <conio.h>
+#else
+    #include <termios.h>
+    #include <unistd.h>
+    char getch_linux() {
     char buf = 0; // Variable to store the input character
 
     struct termios old = {0}; // Structure to save current terminal settings
@@ -44,6 +44,22 @@ char getch_linux() {
     // Return the character that was read
     return buf;
 }
+#endif
+#include "TerminalUi.h"
+#include "ArrowInput2.h"
+using namespace TerminalUI;
+ int getch_all() {
+    
+    #ifdef _WIN32
+        return _getch(); 
+        
+    #else
+        return getch_linux(); // Use Linux-specific function to get a character
+    #endif
+
+ }
+// Alternative implementation of getch() for Linux systems
+
 /*
 int main() {
     // Display instructions for the user

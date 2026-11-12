@@ -45,8 +45,10 @@ void addEmployee( EmployeeC empArr[], int &empCounter,int &maxEmp){
             cin>> age;
              cout<< " add salary:";
             cin>> salary;
+           
             empArr[empCounter].addEmp(name, age, salary);
             empCounter ++;
+             cin.ignore(1000, '\n');
         }else if (ans == 'n'|| ans == 'N'){
             resetScreen();
             return;
@@ -63,9 +65,17 @@ void addEmployee( EmployeeC empArr[], int &empCounter,int &maxEmp){
 void staticMainScreen( EmployeeC empArr[], int &empCounter,int &maxEmp){
       int  index = 0;
    drawStaticScreen(index);
- char byte1= 'q';
+ int byte1= 'q';
+  int  byte3= 'q';
     do{
-        byte1= getch_linux();
+          byte1= getch_all();
+            #ifdef _WIN32
+             if (byte1 == 224)
+                  byte1= '\033';
+            if (byte1 == '\r') byte1= '\n';
+            #endif
+
+      
         if(byte1 == '\n' ){
            if (index ==0){ // add new employee 
              cout<<" display is enterrred ";
@@ -81,8 +91,32 @@ void staticMainScreen( EmployeeC empArr[], int &empCounter,int &maxEmp){
         // If the key is the beginning of an arrow-key escape sequence
         if (byte1 == '\033') {
             // Skip the second character '['
-           char byte2=getch_linux();
-           char byte3=getch_linux();
+           #ifdef _WIN32
+            #else
+                byte2=getch_all();
+            #endif
+     #ifdef _WIN32
+             byte3=getch_all();
+          
+          
+ switch (byte3) {
+            case 72: byte3 = 'A'; break;
+            case 80: byte3 = 'B'; break;
+            case 77: byte3 = 'C'; break;
+            case 75: byte3 = 'D'; break;
+            case 71: byte3 = 'H'; break;
+            case 79: byte3 = 'F'; break;
+                    
+        }
+    
+          
+        }
+            #else
+                byte3=getch_all();
+            #endif
+            // The third character determines the arrow direction
+            //std::cout<<"Byte 3 :: "<<byte3<<std::endl;
+       
            
             switch (byte3) {
                 case 'A':
@@ -117,10 +151,8 @@ void staticMainScreen( EmployeeC empArr[], int &empCounter,int &maxEmp){
 
                 
             }
-        }
-
-       
-    }while(index != 2 || byte1 != '\n');  
+    }
+    while(index != 2 || byte1 != '\n');  
 }
 void drawStaticScreen( int index ){
     int x =25;
@@ -148,7 +180,7 @@ void displayEmployees(EmployeeC empArr[], int &empCounter){
         empArr[i].display();
     }
     cout << "press Q or q to leave\n";
-             byte1= getch_linux();
+             byte1= getch_all();
 
 }while (byte1 !='q' && byte1 != 'Q');
 
