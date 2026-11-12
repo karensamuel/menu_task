@@ -1,0 +1,1 @@
+void  mainScreen(bool staticOrDynamic);
