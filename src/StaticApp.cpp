@@ -93,7 +93,7 @@ void staticMainScreen( EmployeeC empArr[], int &empCounter,int &maxEmp){
             // Skip the second character '['
            #ifdef _WIN32
             #else
-                byte2=getch_all();
+               int byte2=getch_all();
             #endif
      #ifdef _WIN32
              byte3=getch_all();
@@ -110,14 +110,14 @@ void staticMainScreen( EmployeeC empArr[], int &empCounter,int &maxEmp){
         }
     
           
-        }
+        
             #else
                 byte3=getch_all();
             #endif
             // The third character determines the arrow direction
             //std::cout<<"Byte 3 :: "<<byte3<<std::endl;
        
-           
+    }
             switch (byte3) {
                 case 'A':
                     //std::printf("↑ Up Arrow\n");

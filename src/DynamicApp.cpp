@@ -18,6 +18,7 @@ void dynamicMainScreen( EmpStruct *&empArr,int &empCounter,int &maxEmp){
    drawDynamicScreen(index);
  int byte1= 'q';
   int  byte3= 'q';
+  int byte2 ='q';
     do{
           byte1= getch_all();
             #ifdef _WIN32
@@ -58,7 +59,7 @@ void dynamicMainScreen( EmpStruct *&empArr,int &empCounter,int &maxEmp){
                     
         }
             #else
-                byte2=getch_all();
+                 byte2=getch_all();
                 byte3=getch_all();
             #endif
                switch (byte3) {
