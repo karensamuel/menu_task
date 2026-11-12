@@ -5,6 +5,6 @@
 #include "DynamicApp.h"
 using namespace TerminalUI;
 void  mainScreen(bool staticOrDynamic){
-         // (staticOrDynamic==0)?staticApp():dynamicApp();
-staticApp();
+         (staticOrDynamic==0)?staticApp():dynamicApp();
+
 }
